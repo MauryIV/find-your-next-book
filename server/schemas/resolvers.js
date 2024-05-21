@@ -1,0 +1,62 @@
+const { User, Book } = require("../models");
+const { countDocuments } = require("../models/User");
+const { signToken, AuthenticationError } = require("../utils/auth");
+
+const resolvers = {
+  Query: {
+    // In this, we need to try and pass parent, args before we can get to context because of how qraphql is set up. Also need to make sure to populate the array savedBooks in order to get the information needed to be called.
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id}).populate('savedBooks')
+      }
+      throw AuthenticationError;
+    },
+  },
+
+  Mutation: {
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
+    },
+    // This goes through and makes sure to find the user email first before looking for a corresponding password and verify it.
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw AuthenticationError
+      }
+      const isPassword = await user.isCorrectPassword(password);
+      if (!isPassword) {
+        throw AuthenticationError
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
+    // Here we are getting the bookId (being pulled form API) and updating the User to add this book to their savedBooks array
+    saveBook: async (parent, { bookId }, context) => {
+      if (context.me) {
+        const readingUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: bookId } },
+          { new: true }
+        ).populate('savedBooks');
+        return readingUser;
+      }
+      throw AuthenticationError;
+    },
+    // Same as previous but for removing
+    removeBook: async (parent, { bookId }, context) => {
+      if (context.me) {
+        const overwhelmedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedBooks: bookId } },
+          { new: true }
+        ).populate('savedBooks');
+        return overwhelmedUser;
+      }
+      throw AuthenticationError
+    },
+  },
+};
+
+module.exports = resolvers;
