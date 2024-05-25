@@ -7,7 +7,7 @@ import Auth from '../utils/auth';
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
+  const [validated, setValidated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [login, { error }] = useMutation(LOGIN_USER);
 
@@ -25,17 +25,14 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
+    setValidated(true);
 
     try {
       const response = await login({
         variables: { ...userFormData },
       });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
+      const { token, user } = response.data;
       console.log(user);
       Auth.login(token);
     } catch (err) {
@@ -44,7 +41,6 @@ const LoginForm = () => {
     }
 
     setUserFormData({
-      username: '',
       email: '',
       password: '',
     });
