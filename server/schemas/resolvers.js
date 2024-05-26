@@ -35,25 +35,25 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // Here we are getting the bookId (being pulled form API) and updating the User to add this book to their savedBooks array
-    saveBook: async (parent, { bookId }, context) => {
-      console.log(context)
+    // Here we are getting the book information (being pulled form API) and updating the User to add this book to their savedBooks array
+    saveBook: async (parent, { authors, description, title, bookId, image, link }, context) => {
       if (context.user) {
+        const book = { authors, description, title, bookId, image, link };
         const readingUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedBooks: bookId } },
+          { $addToSet: { savedBooks: book } },
           { new: true }
         ).populate("savedBooks");
         return readingUser;
       }
       throw AuthenticationError;
     },
-    // Same as previous but for removing
+    // Romoving a book form a user savedBook array using the bookId
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const overwhelmedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedBooks: bookId } },
+          { $pull: { savedBooks: { bookId } } },
           { new: true }
         ).populate("savedBooks");
         return overwhelmedUser;
