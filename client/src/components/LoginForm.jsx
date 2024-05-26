@@ -27,12 +27,11 @@ const LoginForm = () => {
     setValidated(true);
 
     try {
-      const response = await login({
+      const { data } = await login({
         variables: { ...userFormData },
       });
 
-      const { token, user } = response.data;
-      console.log(user);
+      const { token } = data.login;
       Auth.login(token);
     } catch (err) {
       console.error(err);

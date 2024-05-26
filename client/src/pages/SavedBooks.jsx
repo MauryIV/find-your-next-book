@@ -7,9 +7,13 @@ import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
-  const userData = data?.me || [];
 
-  const [remove, { error }] = useMutation(REMOVE_BOOK);
+  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+
+  console.log(data)
+  const userData = data?.me || [];
+  console.log(userData)
+  console.log(userData.savedBooks?.length);
 
   // Make sure user is logged in, in order to delte book from said user
   const handleDeleteBook = async (bookId) => {
@@ -19,7 +23,7 @@ const SavedBooks = () => {
     }
 
     try {
-      await remove({
+      await removeBook({
         variables: { bookId },
       });
 
