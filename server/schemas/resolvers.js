@@ -1,5 +1,4 @@
-const { User, Book } = require("../models");
-const { countDocuments } = require("../models/User");
+const { User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
