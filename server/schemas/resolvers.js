@@ -4,13 +4,13 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    // In this, we need to try and pass parent, args before we can get to context because of how qraphql is set up. Also need to make sure to populate the array savedBooks in order to get the information needed to be called.
-    me: async (parent, { _id, username, email }) => {
+    // In this, we need the userId arg to find info, also need to make sure to populate the array savedBooks in order to get the information needed to be called.
+    me: async (parent, { userId }) => {
       const user = await User.findOne({
-        $or: [{ _id: _id }, { username: username }, { email: email }],
+        _id: userId,
       }).populate("savedBooks");
       if (!user) {
-        throw AuthenticationError;
+        throw new AuthenticationError("User not found");
       }
       return user;
     },

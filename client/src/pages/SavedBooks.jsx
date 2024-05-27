@@ -6,14 +6,24 @@ import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
-  const { loading, data } = useQuery(GET_ME);
+  const userId = Auth.getUserId();
 
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const { loading, error, data } = useQuery(GET_ME, {
+    variables: { userId },
+    context: {
+      headers: {
+        authorization: `Bearer ${Auth.getToken()}`,
+      },
+    },
+  });
 
-  console.log(data)
+  const [removeBook, { error: removeBookError }] = useMutation(REMOVE_BOOK);
+
+  if (error) {
+    console.log("Error:", error.message);
+  }
+
   const userData = data?.me || [];
-  console.log(userData)
-  console.log(userData.savedBooks?.length);
 
   // Make sure user is logged in, in order to delte book from said user
   const handleDeleteBook = async (bookId) => {
@@ -76,9 +86,9 @@ const SavedBooks = () => {
                       </Button>
                     </Card.Body>
                   </Card>
-                  {error && (
+                  {removeBookError && (
                     <div className="my-3 p-3 bg-danger text-white">
-                      {error.message}
+                      {removeBookError.message}
                     </div>
                   )}
                 </Col>
