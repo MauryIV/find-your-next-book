@@ -22,7 +22,7 @@ This is an application that uses GraphQL to go through different pages and store
 
 <a id="badges"></a>
 ## Badges
-![Maury Hughes IV](https://img.shields.io/badge/Maury%20Hughes%20IV-5A2BE2)
+![Maury Hughes IV](https://img.shields.io/badge/Maury%20Hughes%20IV-5A2BE2) [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org) [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com) [![Minimum node.js version](https://badgen.net/npm/node/express)](https://npmjs.com/package/express) [![GitHub](https://img.shields.io/badge/--181717?logo=github&logoColor=ffffff)](https://github.com/) [![git](https://badgen.net/badge/icon/git?icon=git&label)](https://git-scm.com) [![Visual Studio Code](https://img.shields.io/badge/--007ACC?logo=visual%20studio%20code&logoColor=ffffff)](https://code.visualstudio.com/) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 <a id="installation"></a>
@@ -35,7 +35,10 @@ The main usage of this code is a solid reference in converting a RESTful API to 
 
 <a id="Visuals"></a>
 ## Visuals
-NA
+![Screenshot 2024-05-27 at 1 26 36 PM](https://github.com/MauryIV/find-your-next-book/assets/146037880/f01ccfa0-8ba1-4b26-a6c4-b27a2029d1a7)
+![Screenshot 2024-05-27 at 1 26 11 PM](https://github.com/MauryIV/find-your-next-book/assets/146037880/eba5d4a5-78fc-4a42-a5ca-22016291949a)
+![Screenshot 2024-05-27 at 1 26 19 PM](https://github.com/MauryIV/find-your-next-book/assets/146037880/a1b315d5-b300-4ec4-b8c5-732c63689602)
+![Screenshot 2024-05-27 at 1 25 59 PM](https://github.com/MauryIV/find-your-next-book/assets/146037880/e9b34b6d-3a7b-44e6-8e7c-ccc89d847455)
 
 <a id="tests"></a>
 ## Tests
