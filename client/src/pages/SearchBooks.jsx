@@ -47,7 +47,7 @@ const SearchBooks = () => {
         bookId: book.id,
         authors: book.volumeInfo.authors || ["No author to display"],
         title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
+        description: book.volumeInfo.description || "",
         image: book.volumeInfo.imageLinks?.thumbnail || "",
       }));
 
@@ -67,22 +67,13 @@ const SearchBooks = () => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
-      return false;
+      console.log("No token provided")
+      return;
     }
 
     try {
-      console.log("book ID is: ", bookToSave);
-      console.log("token is: ", token);
       await saveBook({
-        variables: {
-          input: {
-            bookId: bookToSave.bookId,
-            authors: bookToSave.authors,
-            title: bookToSave.title,
-            description: bookToSave.description,
-            image: bookToSave.image,
-          }
-        },
+        variables: { ...bookToSave },
         context: {
           headers: {
             authorization: `Bearer ${token}`,
