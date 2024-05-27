@@ -147,7 +147,7 @@ const SearchBooks = () => {
                         {savedBookIds?.some(
                           (savedBookId) => savedBookId === book.bookId
                         )
-                          ? "This book has already been saved!"
+                          ? "This book has been saved!"
                           : "Save this Book!"}
                       </Button>
                     )}
