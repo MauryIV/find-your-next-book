@@ -30,11 +30,11 @@ const SignupForm = () => {
     setValidated(true);
 
     try {
-      const response = await create({
+      const { data } = await create({
         variables: { ...userFormData },
       });
-
-      const { token } = await response.data;
+      console.log(data)
+      const { token } = data.addUser;
       Auth.login(token);
     } catch (err) {
       console.error(err);

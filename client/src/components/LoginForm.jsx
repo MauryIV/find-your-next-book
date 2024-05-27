@@ -33,7 +33,8 @@ const LoginForm = () => {
 
       const { token } = data.login;
       Auth.login(token);
-    } catch {
+    } catch (err) {
+      console.error(err);
       setShowAlert(true);
     }
 
